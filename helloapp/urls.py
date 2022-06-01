@@ -14,9 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin # импортируется класс AdminSite, который предоставляет возможности работы с интерфейсом администратора.
-from django.urls import path # Эта функция задает сопоставление определенного маршрута с функцией обработки.
+from django.urls import path# Эта функция задает сопоставление определенного маршрута с функцией обработки.
+from django.urls import re_path
 from firstapp import views
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('admin/', admin.site.urls),
+
+    path('products/',views.products),
+    path('products/<int:productid>/',views.products),
+
+    path('users/',views.users),
+    path('users/<int:id>/<str:name>/',views.users),
+
+
 ]
