@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from .forms import UserForm
 
 def index(request):
-    header = "Personal Data"
-    langs = ["English", "German", "Spanish"]
-    user = {"name" : "Tom", "age" : 23}
-    addr = ("Абрикосовая", 23, 45)
+    userForm = UserForm()
+    if request.method == "POST":
+        userForm = UserForm(request.POST)
+        if userForm.is_valid():
+            name = userForm.cleaned_data["name"]
+            age = userForm.cleaned_data["age"]
+            return HttpResponse("<h2>Hello {0}, you are {1} y.o.</h2>".format(name, age))
+    return render(request, "index.html", {"form": userForm})
 
-    data = {"header":header, "langs":langs, "user":user, "address": addr}
-    return render(request, "index.html", context=data)
+def test(request):
+    return render(request,"test.html")
