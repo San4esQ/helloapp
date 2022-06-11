@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UserForm
 
+
 def index(request):
     userForm = UserForm()
     if request.method == "POST":
